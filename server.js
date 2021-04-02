@@ -35,7 +35,7 @@ function sendData(req, res) {
 app.post("/add", addData);
 
 function addData(req, res) {
-  console.log(req.body);
   projectData.push(req.body);
+  console.log(projectData);
   res.send(projectData);
 }

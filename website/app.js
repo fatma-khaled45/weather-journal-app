@@ -22,9 +22,10 @@ function performAction(e) {
         temp: data.weather[0].main,
         content: feelings,
       });
+    })
+    .then(() => {
+      updateUL();
     });
-
-  updateUL();
 }
 
 /* Function to POST data */
@@ -40,28 +41,29 @@ const postData = async (url = "", data = {}) => {
       },
       body: JSON.stringify(data),
     });
-    const newData = await res.json();
-    console.log({ newData });
   } catch (error) {
     console.log("error", error);
   }
+};
 
-  /* Function to GET Project Data */
+/* Function to GET Project Data */
 
-  const updateUL = async () => {
-    const request = await fetch("/all");
-    try {
-      const allData = await request.json();
-      document.getElementById("date").innerHTML = `Date: ${allData[0].date}`;
-      document.getElementById(
-        "temp"
-      ).innerHTML = `temperatuer: ${allData[0].temp}`;
+const updateUL = async () => {
+  try {
+    const request = await fetch(localHostUrl + "/all");
+    const allData = await request.json();
+    console.log(allData);
+    document.getElementById("date").innerHTML = `Date: ${
+      allData[allData.length - 1].date
+    }`;
+    document.getElementById(
+      "temp"
+    ).innerHTML = `temperatuer: ${allData[0].temp}`;
 
-      document.getElementById(
-        "date"
-      ).innerHTML = `i feel: ${allData[0].content}`;
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+    document.getElementById("date").innerHTML = `i feel: ${
+      allData[allData.length - 1].content
+    }`;
+  } catch (error) {
+    console.log("error", error);
+  }
 };
