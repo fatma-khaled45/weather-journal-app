@@ -23,6 +23,8 @@ function performAction(e) {
         content: feelings,
       });
     });
+
+  updateUL();
 }
 
 /* Function to POST data */
