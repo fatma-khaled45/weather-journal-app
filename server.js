@@ -23,7 +23,7 @@ const server = app.listen(port, function listening() {
   console.log(`running on localhost: ${port}`);
 });
 
-const projectData = [];
+let projectData = {};
 
 // Callback function to complete GET '/all'
 
@@ -35,7 +35,7 @@ function sendData(req, res) {
 app.post("/add", addData);
 
 function addData(req, res) {
-  projectData.push(req.body);
+  Object.assign(projectData, req.body);
   console.log(projectData);
   res.send(projectData);
 }
